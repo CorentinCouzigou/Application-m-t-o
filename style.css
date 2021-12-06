@@ -4,16 +4,20 @@ body {
 *{
     box-sizing: border-box;
 }
+h1{
+    font-size:2rem;
+    color: purple;
+    font-weight:bold;
+}
 .container{
-    border: 1px solid purple;
     width: 100%;
     min-height: 100vh;
     display: flex;
     align-items:center;
     justify-content: space-around;
     flex-direction: column;
-    padding:2rem;
-    background-image:url("./images/soleil.jpg");
+    padding:1rem;
+    background-image:url("./images/clair.jpg");
     background-position: center;
     background-size: cover;
 
@@ -22,7 +26,6 @@ body {
 .search__container{
     width:100%;
     height: 10vh;
-    border: 2px solid blue;
     margin-bottom: 1rem;
     display: flex;
     align-items:center;
@@ -31,23 +34,61 @@ body {
 
 
 }
+.search__form__input{
+border:none;
+border-radius:2rem;
+padding: 0.5rem 1rem;
+}
+.search__form__button{
+    border:none;
+    color: white;
+    border-radius:2rem;
+    padding: 0.5rem 1rem; 
+    background-color: purple;
+
+}
+.search__form__button:hover{
+    background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);
+    color: black;
+    cursor: pointer;
+
+}
 
 .results__container{
-    width: 85%;
+    width: 100%;
     min-height: 50vh;
-    border: 2px solid red;
     display: flex;
     flex-wrap: wrap;
 }
 .results__box{
     width:50%;
     height:10rem;
-    border: 4px solid turquoise;
+    padding:0.5rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     color: purple;
     font-weight: bold;
     font-size:2rem;
+}
+h2{
+margin-bottom:0.4rem;
+font-size:2.2rem;
+}
+.logoDrop{
+    color: blue;
+}
+.logoWind{
+ color:lightgray;
+
+}
+.logoTemp{
+    background: -webkit-linear-gradient(crimson,dodgerblue);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+}
+.logoCity{
+    color:black
 }

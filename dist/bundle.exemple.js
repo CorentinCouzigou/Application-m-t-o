@@ -1,0 +1,1 @@
+const CreateBundleJs = "npm run build";
