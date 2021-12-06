@@ -4,6 +4,24 @@ let city = "";
 
 const app = {
     init: function () {
+        const loading = {
+            start: function () {
+                document.body.insertAdjacentHTML('beforeend', '<div id="loading">LOADING</div>');
+            },
+            complete: function () {
+                var loading = document.getElementById("loading");
+                console.log(loading);
+                loading.remove(loading);
+            }
+        };
+        loading.start();
+        document.addEventListener("readystatechange", function () {
+            console.log(document.readyState);
+            if (document.readyState === "complete") {
+                loading.complete();
+            }
+        });
+
         document.querySelector('.search__form').addEventListener('submit', (event) => handleValueCity(event))
         const getData = async () => {
             let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=fr&appid=${apiKey}`;
