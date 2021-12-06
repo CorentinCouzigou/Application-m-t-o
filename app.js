@@ -1,6 +1,6 @@
 const apiKey = require('./env.js');
 console.log(apiKey);
-let city = "Paris";
+let city = "";
 
 const app = {
     init: function () {
@@ -18,6 +18,7 @@ const app = {
                 document.querySelector('#temp').textContent = `${data.main.temp}°`;
                 document.querySelector('#humidity').textContent = `${data.main.humidity}%`;
                 document.querySelector('#wind').textContent = `${data.wind.speed}km/h`;
+                document.querySelector('.search__form__errorMessage').remove;
                 switch (data.weather[0].main) {
                     case "Clear":
                         document.querySelector('.container').setAttribute("style", "background-image:url('./images/clair.jpg');")
@@ -38,7 +39,10 @@ const app = {
                         document.querySelector('.container').setAttribute("style", "background-image:url('./images/neige.jpg');")
                         break;
                 }
-            } catch (err) { console.log(err) }
+            } catch (err) {
+                document.querySelector('.search__form__errorMessage').textContent = "La ville choisie n'est pas correcte";
+                console.log(err)
+            }
         }
         const handleValueCity = (event) => {
             event.preventDefault();
@@ -48,8 +52,6 @@ const app = {
             getData();
         }
 
-
-        getData();
 
     }
 
