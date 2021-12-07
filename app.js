@@ -1,20 +1,27 @@
+// N'utilisant pas de server pour utiliser export et require j'utilise browserify
 const apiKey = require('./env.js');
-console.log(apiKey);
 let city = "";
 
 const app = {
+    // fonction qui initialise mon application
     init: function () {
+        // on cache le loader sans appel API
         document.querySelector('.loader').classList.add('hidden');
+        // j'ajoute un écouteur d'événement à la soumission du formulaire pour lancer un événement
         document.querySelector('.search__form').addEventListener('submit', (event) => handleValueCity(event))
+        // fonction en charge de la récupération des données depuis l'api tiers openweathermap
         const getData = async () => {
+            // appel à l'api d'openweathermap 
             let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=fr&appid=${apiKey}`;
+            // j'utilise un try catch pour visiualiser d'éventuelles erreurs de cet appel api
             try {
+                // je fais apparaitre le loader le temps de l'appel api
                 document.querySelector('.loader').classList.remove('hidden');
                 const response = await fetch(url, {
                     method: 'GET',
                 });
-
                 const data = await response.json();
+                // je gère le cas d'erreur ou la ville n'est pas trouvé par l'api d'openweathermap
                 if (data.message === "city not found") {
                     document.querySelector('.loader').classList.add('hidden');
                     document.querySelector('.search__form__errorMessage').textContent = "La ville choisie n'est pas correcte";
@@ -22,14 +29,17 @@ const app = {
                     document.querySelector('#temp').textContent = "";
                     document.querySelector('#humidity').textContent = "";
                     document.querySelector('#wind').textContent = "";
+                    document.querySelector('#weather').textContent = "";
 
                 }
-                console.log("response", data);
+                // Une fois les données reçes je les implémentent dans le dom
                 document.querySelector('#city').textContent = data.name;
                 document.querySelector('#temp').textContent = `${Math.round(data.main.temp)}°`;
                 document.querySelector('#humidity').textContent = `${data.main.humidity}%`;
-                document.querySelector('#wind').textContent = `${data.wind.speed}km/h`;
+                document.querySelector('#wind').textContent = `${Math.round(data.wind.speed)}km/h`;
+                document.querySelector('#weather').textContent = data.weather[0].description;
                 document.querySelector('.search__form__errorMessage').textContent = "";
+                // Ce switch me permet de définir un arrière plan en fonction de la météo
                 switch (data.weather[0].main) {
                     case "Clear":
                         document.querySelector('.container').setAttribute("style", "background-image:url('./images/clair.jpg');")
@@ -43,21 +53,27 @@ const app = {
                     case "Thunderstorm":
                         document.querySelector('.container').setAttribute("style", "background-image:url('./images/thunder.jpg');")
                         break;
-                    case "Mist":
+                    case "Fog" || "Mist":
                         document.querySelector('.container').setAttribute("style", "background-image:url('./images/brume.jpg');")
                         break;
                     case "Snow":
                         document.querySelector('.container').setAttribute("style", "background-image:url('./images/neige.jpg');")
                         break;
                 }
+                // une fois l'appel api terminé et reussi je retire le loader de ma page
                 document.querySelector('.loader').classList.add('hidden');
             } catch (err) {
+                // visualisation de l'erreur en cas d'échec de l'appel api
                 console.log(err)
             }
         }
+        // fonction qui gère la soumission de la valeur rentrée par l'utilisateur dans mon formulaire
         const handleValueCity = (event) => {
+            // j'effectue un event.prenventDefault pour empécher le rechargement de la page
             event.preventDefault();
+            // je recupère la valeur saisie par l'utilisateur
             city = event.target[0].value;
+            //  je lance mon appel api avec la nouvelle valeur pour city
             getData();
         }
 

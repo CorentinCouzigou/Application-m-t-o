@@ -93,6 +93,16 @@ padding: 0.5rem 1rem;
     font-weight: bold;
 }
 
+/* style du span décrivant les conditions climatiques */
+#weather{
+    width: 100%;
+    height: 2rem;
+    font-size:2rem;
+    text-align: center;
+    color:white;
+    font-weight: bold;
+}
+
 /* style des boites contenant les résultats */
 .results__container{
     width: 100%;
