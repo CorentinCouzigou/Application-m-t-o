@@ -1,5 +1,6 @@
 // N'utilisant pas de server pour utiliser export et require j'utilise browserify
 const apiKey = require('./env.js');
+const schema = require('./validation/cityValidation.js')
 let city = "";
 
 const app = {
@@ -71,10 +72,27 @@ const app = {
         const handleValueCity = (event) => {
             // j'effectue un event.prenventDefault pour empécher le rechargement de la page
             event.preventDefault();
-            // je recupère la valeur saisie par l'utilisateur
-            city = event.target[0].value;
-            //  je lance mon appel api avec la nouvelle valeur pour city
-            getData();
+            // je recupère la valeur saisie par l'utilisateur et je vérifie sa valeur avec la bibliothèque Joi
+            let validation = schema.validate({
+                city: event.target[0].value
+            })
+            //traitement en cas d'erreur lros de la saisie d'un utilisateur
+            if (validation.error) {
+                console.log("Error Joi Validation", validation.error)
+                document.querySelector('.search__form__errorMessage').textContent = "La ville choisie n'est pas correcte";
+                document.querySelector('#city').textContent = "";
+                document.querySelector('#temp').textContent = "";
+                document.querySelector('#humidity').textContent = "";
+                document.querySelector('#wind').textContent = "";
+                document.querySelector('#weather').textContent = "";
+
+            }
+            else {
+                // je Change la valeur de city
+                city = event.target[0].value;
+                //  je lance mon appel api avec la nouvelle valeur pour city
+                getData();
+            }
         }
 
 
