@@ -4,39 +4,32 @@ let city = "";
 
 const app = {
     init: function () {
-        const loading = {
-            start: function () {
-                document.body.insertAdjacentHTML('beforeend', '<div id="loading">LOADING</div>');
-            },
-            complete: function () {
-                var loading = document.getElementById("loading");
-                console.log(loading);
-                loading.remove(loading);
-            }
-        };
-        loading.start();
-        document.addEventListener("readystatechange", function () {
-            console.log(document.readyState);
-            if (document.readyState === "complete") {
-                loading.complete();
-            }
-        });
-
+        document.querySelector('.loader').classList.add('hidden');
         document.querySelector('.search__form').addEventListener('submit', (event) => handleValueCity(event))
         const getData = async () => {
             let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=fr&appid=${apiKey}`;
             try {
+                document.querySelector('.loader').classList.remove('hidden');
                 const response = await fetch(url, {
                     method: 'GET',
                 });
-                console.log(url)
+
                 const data = await response.json();
+                if (data.message === "city not found") {
+                    document.querySelector('.loader').classList.add('hidden');
+                    document.querySelector('.search__form__errorMessage').textContent = "La ville choisie n'est pas correcte";
+                    document.querySelector('#city').textContent = "";
+                    document.querySelector('#temp').textContent = "";
+                    document.querySelector('#humidity').textContent = "";
+                    document.querySelector('#wind').textContent = "";
+
+                }
                 console.log("response", data);
                 document.querySelector('#city').textContent = data.name;
-                document.querySelector('#temp').textContent = `${data.main.temp}°`;
+                document.querySelector('#temp').textContent = `${Math.round(data.main.temp)}°`;
                 document.querySelector('#humidity').textContent = `${data.main.humidity}%`;
                 document.querySelector('#wind').textContent = `${data.wind.speed}km/h`;
-                document.querySelector('.search__form__errorMessage').remove;
+                document.querySelector('.search__form__errorMessage').textContent = "";
                 switch (data.weather[0].main) {
                     case "Clear":
                         document.querySelector('.container').setAttribute("style", "background-image:url('./images/clair.jpg');")
@@ -57,16 +50,14 @@ const app = {
                         document.querySelector('.container').setAttribute("style", "background-image:url('./images/neige.jpg');")
                         break;
                 }
+                document.querySelector('.loader').classList.add('hidden');
             } catch (err) {
-                document.querySelector('.search__form__errorMessage').textContent = "La ville choisie n'est pas correcte";
                 console.log(err)
             }
         }
         const handleValueCity = (event) => {
             event.preventDefault();
-            console.log(event.target[0].value)
             city = event.target[0].value;
-
             getData();
         }
 
@@ -75,5 +66,5 @@ const app = {
 
 };
 
-//cahrgement du DOM avant l'application
+//chargement du DOM avant l'application
 document.addEventListener('DOMContentLoaded', app.init());
