@@ -1,6 +1,7 @@
-const apiKey = process.env.APIKEY;
+const TOKEN = require('./config');
 const schema = require('./validation/cityValidation.js');
 let city = "";
+
 
 const app = {
     // fonction qui initialise mon application
@@ -12,7 +13,7 @@ const app = {
         // fonction en charge de la récupération des données depuis l'api tiers openweathermap
         const getData = async () => {
             // appel à l'api d'openweathermap 
-            let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=fr&appid=${apiKey}`;
+            let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=fr&appid=${TOKEN}`;
             // j'utilise un try catch pour visiualiser d'éventuelles erreurs de cet appel api
             try {
                 // je fais apparaitre le loader le temps de l'appel api
