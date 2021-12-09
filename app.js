@@ -1,4 +1,3 @@
-
 const apiKey = process.env.apiKey;
 const schema = require('./validation/cityValidation.js')
 let city = "";
