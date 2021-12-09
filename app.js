@@ -1,11 +1,10 @@
-const apiKey = process.env.apiKey;
-const schema = require('./validation/cityValidation.js')
+const apiKey = process.env.APIKEY;
+const schema = require('./validation/cityValidation.js');
 let city = "";
 
 const app = {
     // fonction qui initialise mon application
     init: function () {
-        console.log(process.env.REACT_APP_APIKEY)
         // on cache le loader sans appel API
         document.querySelector('.loader').classList.add('hidden');
         // j'ajoute un écouteur d'événement à la soumission du formulaire pour lancer un événement
