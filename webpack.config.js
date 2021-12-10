@@ -1,10 +1,16 @@
 const Dotenv = require('dotenv-webpack');
+const TerserPlugin = require("terser-webpack-plugin");
 module.exports = {
-    entry:'./app.js',
-    output: {
-      filename: 'bundle.js'
-    },
-    plugins: [
-      new Dotenv()
-    ]
-  }
+  mode: 'production',
+  entry: './app.js',
+  output: {
+    filename: 'bundle.js'
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin({ test: /\.js(\?.*)?$/i, })],
+  },
+  plugins: [
+    new Dotenv()
+  ]
+}
