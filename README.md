@@ -7,6 +7,8 @@ Créé un env.js à la racine du dossier avec une variable apiKey qui aura en va
 Pour que cette variable soit exportable et requise dans un autre fichier nous avons besoin d'utiliser un bundler(browserify). Lancez dans votre terminal la commande "browserify -e app.js -o dist/bundle.js" pour la gestion des fichiers et de leurs lien(export, require).
 
 Une fois ces manipulations effectuées vous pouvez utiliser cette application en local.  
+:fire: [Lien vers site](https://weather-corentin.netlify.app/) :fire:
+
 ____
 ![image](./images/HomeClearSky.png)
 ____
