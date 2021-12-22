@@ -1,4 +1,4 @@
-const  TOKEN_API  = process.env.TOKEN;
+const TOKEN_API = process.env.TOKEN;
 const schema = require('./validation/cityValidation.js');
 let city = "";
 
@@ -31,7 +31,6 @@ const app = {
                     document.querySelector('#humidity').textContent = "";
                     document.querySelector('#wind').textContent = "";
                     document.querySelector('#weather').textContent = "";
-
                 }
                 // Une fois les données reçes je les implémentent dans le dom
                 document.querySelector('#city').textContent = data.name;
@@ -41,28 +40,35 @@ const app = {
                 document.querySelector('#weather').textContent = data.weather[0].description;
                 document.querySelector('.search__form__errorMessage').textContent = "";
                 // Ce switch me permet de définir un arrière plan en fonction de la météo
+                console.log(data.weather[0].main)
                 switch (data.weather[0].main) {
                     case "Clear":
-                        document.querySelector('.container').setAttribute("style", "background-image:url('./images/clair.jpg');")
+                        document.querySelector('.backgroundImage').setAttribute("src", "./images/clair.jpg")
+                        document.querySelector('.backgroundImage').addEventListener('load', (event) => { document.querySelector('.loader').classList.add('hidden'); });
                         break;
                     case "Clouds" || "Scattered clouds" || "Few clouds":
-                        document.querySelector('.container').setAttribute("style", "background-image:url('./images/clouds.jpg');")
+                        document.querySelector('.backgroundImage').setAttribute("src", "./images/clouds.jpg")
+                        document.querySelector('.backgroundImage').addEventListener('load', (event) => { document.querySelector('.loader').classList.add('hidden'); })
                         break;
                     case "Rain" || "Light rain" || "Shower rain":
-                        document.querySelector('.container').setAttribute("style", "background-image:url('./images/pluie.jpg');")
+                        document.querySelector('.backgroundImage').setAttribute("src", "./images/pluie.jpg")
+                        document.querySelector('.backgroundImage').addEventListener('load', (event) => { document.querySelector('.loader').classList.add('hidden'); })
                         break;
                     case "Thunderstorm":
-                        document.querySelector('.container').setAttribute("style", "background-image:url('./images/thunder.jpg');")
+                        document.querySelector('.backgroundImage').setAttribute("src", "./images/thunder.jpg")
+                        document.querySelector('.backgroundImage').addEventListener('load', (event) => { document.querySelector('.loader').classList.add('hidden'); })
                         break;
                     case "Fog" || "Mist":
-                        document.querySelector('.container').setAttribute("style", "background-image:url('./images/brume.jpg');")
+                        document.querySelector('.backgroundImage').setAttribute("src", "./images/brume.jpg")
+                        document.querySelector('.backgroundImage').addEventListener('load', (event) => { document.querySelector('.loader').classList.add('hidden'); })
                         break;
                     case "Snow":
-                        document.querySelector('.container').setAttribute("style", "background-image:url('./images/neige.jpg');")
+                        document.querySelector('.backgroundImage').setAttribute("src", "./images/neige.jpg")
+                        document.querySelector('.backgroundImage').addEventListener('load', (event) => { document.querySelector('.loader').classList.add('hidden'); })
                         break;
                 }
                 // une fois l'appel api terminé et reussi je retire le loader de ma page
-                document.querySelector('.loader').classList.add('hidden');
+                // document.querySelector('.loader').classList.add('hidden');
             } catch (err) {
                 // visualisation de l'erreur en cas d'échec de l'appel api
                 console.log(err)
