@@ -2,12 +2,12 @@ const TOKEN_API = process.env.TOKEN;
 const schema = require('./validation/cityValidation.js');
 import reset from './style/reset.css';
 import style from './style/style.css';
-// import clair from './img/clair.jpg';
-// import clouds from './img/clouds.jpg';
-// import neige from './img/neige.jpg';
-// import pluie from './img/pluie.jpg';
-// import thunder from './img/thunder.jpg';
-// import brume from './img/brume.jpg';
+import clair from './clair.jpg';
+import clouds from './clouds.jpg';
+import neige from './neige.jpg';
+import pluie from './pluie.jpg';
+import thunder from './thunder.jpg';
+import brume from './brume.jpg';
 
 let city = "";
 
@@ -52,27 +52,27 @@ const app = {
                 console.log(data.weather[0].main)
                 switch (data.weather[0].main) {
                     case "Clear":
-                        document.querySelector('.backgroundImage').setAttribute("src", "./clair")
+                        document.querySelector('.backgroundImage').setAttribute("src", clair)
                         document.querySelector('.backgroundImage').addEventListener('load', (event) => { document.querySelector('.loader').classList.add('hidden'); });
                         break;
                     case "Clouds" || "Scattered clouds" || "Few clouds":
-                        document.querySelector('.backgroundImage').setAttribute("src", "./clouds")
+                        document.querySelector('.backgroundImage').setAttribute("src", clouds)
                         document.querySelector('.backgroundImage').addEventListener('load', (event) => { document.querySelector('.loader').classList.add('hidden'); })
                         break;
                     case "Rain" || "Light rain" || "Shower rain":
-                        document.querySelector('.backgroundImage').setAttribute("src", "./pluie")
+                        document.querySelector('.backgroundImage').setAttribute("src", pluie)
                         document.querySelector('.backgroundImage').addEventListener('load', (event) => { document.querySelector('.loader').classList.add('hidden'); })
                         break;
                     case "Thunderstorm":
-                        document.querySelector('.backgroundImage').setAttribute("src", "./thunder")
+                        document.querySelector('.backgroundImage').setAttribute("src", thunder)
                         document.querySelector('.backgroundImage').addEventListener('load', (event) => { document.querySelector('.loader').classList.add('hidden'); })
                         break;
                     case "Fog" || "Mist":
-                        document.querySelector('.backgroundImage').setAttribute("src", "./brume")
+                        document.querySelector('.backgroundImage').setAttribute("src", brume)
                         document.querySelector('.backgroundImage').addEventListener('load', (event) => { document.querySelector('.loader').classList.add('hidden'); })
                         break;
                     case "Snow":
-                        document.querySelector('.backgroundImage').setAttribute("src", "./neige")
+                        document.querySelector('.backgroundImage').setAttribute("src", neige)
                         document.querySelector('.backgroundImage').addEventListener('load', (event) => { document.querySelector('.loader').classList.add('hidden'); })
                         break;
                 }

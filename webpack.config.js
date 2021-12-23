@@ -38,4 +38,7 @@ module.exports = {
   optimization: {
     minimize: true,
   },
+  plugins: [
+    new Dotenv()
+  ]
 }
